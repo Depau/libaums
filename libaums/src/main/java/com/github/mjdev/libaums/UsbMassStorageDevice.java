@@ -88,6 +88,7 @@ public class UsbMassStorageDevice {
 	private BlockDeviceDriver blockDevice;
 	private PartitionTable partitionTable;
 	private List<Partition> partitions = new ArrayList<Partition>();
+	// TODO this is never used, should we only allow one init() call?
 	private boolean inited = false;
 
 	/**
@@ -229,8 +230,8 @@ public class UsbMassStorageDevice {
 		Log.i(TAG, "MAX LUN " + (int)b[0]);
 		blockDevice = BlockDeviceDriverFactory.createBlockDevice(communication);
 		blockDevice.init();
-		partitionTable = PartitionTableFactory.createPartitionTable(blockDevice);
-		initPartitions();
+//		partitionTable = PartitionTableFactory.createPartitionTable(blockDevice);
+//		initPartitions();
 	}
 
 	/**
@@ -288,5 +289,14 @@ public class UsbMassStorageDevice {
 	 */
 	public UsbDevice getUsbDevice() {
 		return usbDevice;
+	}
+
+	/**
+	 * Returns the block device interface for this device.
+	 *
+	 * @return The BlockDeviceDriver implementation
+	 */
+	public BlockDeviceDriver getBlockDevice() {
+		return blockDevice;
 	}
 }
